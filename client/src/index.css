@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "FBlack";
+  src: url("./assets/fonts/FranieVariableTest-Black-BF64c31f3ca614b.otf");
+}
+@font-face {
+  font-family: "FBold";
+  src: url("./assets/fonts/FranieVariableTest-Bold-BF64c31f3d8798d.otf");
+}
+@font-face {
+  font-family: "FExtraBold";
+  src: url("./assets/fonts/FranieVariableTest-ExtraBold-BF64c31f3d93e1b.otf");
+}
+@font-face {
+  font-family: "FExtraLight";
+  src: url("./assets/fonts/FranieVariableTest-ExtraLight-BF64c31f3ceda28.otf");
+}
+
+@font-face {
+  font-family: "FHair";
+  src: url("./assets/fonts/FranieVariableTest-Hair-BF64c31f3db8c2b.otf");
+}
+@font-face {
+  font-family: "FLight";
+  src: url("./assets/fonts/FranieVariableTest-Light-BF64c31f3dc06e0.otf");
+}
+@font-face {
+  font-family: "FRegular";
+  src: url("./assets/fonts/FranieVariableTest-Regular-BF64c31f3d73b64.otf");
+}
+@font-face {
+  font-family: "FSemiBold";
+  src: url("./assets/fonts/FranieVariableTest-SemiBold-BF64c31f3d7b0b9.otf");
+}
+@font-face {
+  font-family: "FSemiLight";
+  src: url("./assets/fonts/FranieVariableTest-SemiLight-BF64c31f3d5484a.otf");
+}
