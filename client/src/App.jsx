@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import Index from "./pages";
 import Login from "./pages/Login";
 import MainContent from "./components/MainContent";
@@ -11,6 +11,7 @@ function App() {
         <Route index element={<MainContent />}></Route>
         <Route path="/search" element={<Search />}></Route>
       </Route>
+
       <Route path="/login" element={<Login />} />
     </Routes>
   );

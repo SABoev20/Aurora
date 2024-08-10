@@ -3,7 +3,7 @@ import Library from "./Library";
 
 function Sidebar() {
   return (
-    <nav className="w-106 flex h-full flex-col gap-2">
+    <nav className="flex h-full w-106 flex-col gap-2">
       <HomeAndSearch />
       <Library />
     </nav>
