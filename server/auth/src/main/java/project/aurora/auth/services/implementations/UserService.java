@@ -5,6 +5,7 @@ import project.aurora.auth.models.User;
 import project.aurora.auth.repositories.UserRepository;
 import project.aurora.auth.services.contracts.IUserService;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -17,6 +18,7 @@ public class UserService implements IUserService {
 
     @Override
     public User authenticateUser(String email, String password) {
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmail(email));
         return null;
     }
 
