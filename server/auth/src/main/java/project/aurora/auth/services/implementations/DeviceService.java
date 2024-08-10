@@ -1,5 +1,6 @@
 package project.aurora.auth.services.implementations;
 
+import jakarta.servlet.http.Cookie;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import project.aurora.auth.exceptions.EntityNotFoundException;
 import project.aurora.auth.exceptions.ReauthenticationRequiredException;
@@ -7,10 +8,10 @@ import project.aurora.auth.models.Device;
 import project.aurora.auth.models.User;
 import org.springframework.stereotype.Service;
 import project.aurora.auth.repositories.DeviceRepository;
-import project.aurora.auth.services.contracts.IAuthService;
 import project.aurora.auth.services.contracts.IDeviceService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,7 +26,7 @@ public class DeviceService implements IDeviceService {
     }
 
     @Override
-    public void registerNewDevice(User user, String deviceId, HttpServletRequest request) {
+    public Device registerNewDevice(User user, HttpServletRequest request) {
         String userAgent = request.getHeader("User-Agent");
 
         // Extract device info from User-Agent header
@@ -34,29 +35,37 @@ public class DeviceService implements IDeviceService {
         String deviceType = determineDeviceType(userAgent);
 
         Device device = new Device();
-        device.setDeviceId(UUID.fromString(deviceId));
         device.setUser(user);
         device.setBrowserName(browserName);
         device.setOperatingSystem(operatingSystem);
         device.setDeviceType(deviceType);
-        deviceRepository.save(device);
+        device.setLastUsed(Instant.now());
+        return deviceRepository.save(device);
     }
 
+    @Override
     public void updateDeviceLastUsed(String deviceId) {
         Device device = deviceRepository.findById(UUID.fromString(deviceId)).orElseThrow(() ->  new EntityNotFoundException("Device", deviceId));
         device.setLastUsed(Instant.now());
         deviceRepository.save(device);
     }
 
+    @Override
     public void assignRefreshTokenToDevice(User user, String deviceId, String refreshToken) {
         Device device = deviceRepository.findById(UUID.fromString(deviceId)).orElseThrow(() -> new EntityNotFoundException("Device", deviceId));
         device.setRefreshToken(passwordEncoder.encode(refreshToken));
         deviceRepository.save(device);
     }
 
-    public void verifyTokenMatchesDevice(String deviceId, String refreshToken){
+    @Override
+    public boolean deviceMatches(String deviceId, String refreshToken){
         Device device = deviceRepository.findById(UUID.fromString(deviceId)).orElseThrow(() -> new EntityNotFoundException("Device", deviceId));
-        if(!passwordEncoder.matches(refreshToken, device.getRefreshToken())) throw new ReauthenticationRequiredException("Refresh token doesn't match with record");
+        return passwordEncoder.matches(refreshToken, device.getRefreshToken());
+    }
+
+    @Override
+    public boolean deviceMatches(String deviceId, User user) {
+        return deviceRepository.existsByDeviceIdAndUser(UUID.fromString(deviceId), user);
     }
 
     // Methods for extracting information

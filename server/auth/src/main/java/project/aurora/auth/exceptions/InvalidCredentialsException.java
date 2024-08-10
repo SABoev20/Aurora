@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class InvalidCredentialsException extends RuntimeException {
     public enum CredentialType {
-        EMAIL, PASSWORD
+        EMAIL, PASSWORD, COOKIE
     }
 
     public InvalidCredentialsException(CredentialType credentialType) {
@@ -21,6 +21,7 @@ public class InvalidCredentialsException extends RuntimeException {
         return switch (credentialType) {
             case EMAIL -> "Invalid email provided";
             case PASSWORD -> "Invalid password provided";
+            case COOKIE -> "Invalid cookie provided";
             default -> "Invalid credentials provided";
         };
     }

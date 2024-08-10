@@ -6,23 +6,22 @@ import org.springframework.stereotype.Service;
 import project.aurora.auth.config.JwtUtil;
 import project.aurora.auth.exceptions.ReauthenticationRequiredException;
 import project.aurora.auth.models.User;
-import project.aurora.auth.services.contracts.IAuthService;
+import project.aurora.auth.services.contracts.ITokenService;
 import project.aurora.auth.services.contracts.IUserService;
 
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.UUID;
 
 import static project.aurora.auth.models.constants.TimeConstants.*;
 
 @Service
-public class AuthService implements IAuthService {
+public class TokenService implements ITokenService {
 
     private final JwtUtil jwtUtil;
     private final IUserService userService;
 
-    public AuthService(JwtUtil jwtUtil, IUserService userService){
+    public TokenService(JwtUtil jwtUtil, IUserService userService){
         this.jwtUtil = jwtUtil;
         this.userService = userService;
     }
@@ -39,16 +38,6 @@ public class AuthService implements IAuthService {
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("email", user.getEmail());
         return jwtUtil.generateToken(user.getUserId().toString(), claims, ACCESS_TOKEN_EXPIRY);
-    }
-
-    @Override
-    public Cookie getSecuredCookie(String name, String value, String path, int expiry) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setPath(path);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setMaxAge(expiry);
-        return cookie;
     }
 
     @Override
