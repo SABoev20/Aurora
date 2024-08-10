@@ -1,10 +1,8 @@
 import PlaylistCard from "./PlaylistCard";
-import { IsLoggedContext } from "../pages";
-import { useContext } from "react";
+import { useUser } from "../services/userService.js";
 
 function Playlists() {
-  const isLog = useContext(IsLoggedContext);
-
+  const { data: isLog } = useUser();
   return (
     <div className="relative h-full w-full">
       <div className="absolute bottom-0 left-0 right-0 top-0 mx-auto flex w-[calc(100%-16px)] flex-1 flex-col flex-nowrap gap-7 overflow-y-auto">

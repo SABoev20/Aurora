@@ -3,7 +3,6 @@ import StandardButton from "./buttons/StandardButton";
 function PlaylistCard({
   heading = "Default heading",
   text = "Default text",
-  buttonEvent = () => alert("Default"),
   buttonText = "Default button text",
 }) {
   return (
@@ -12,7 +11,7 @@ function PlaylistCard({
         <p className="font-bold">{heading}</p>
         <p className="text-sm">{text}</p>
       </div>
-      <StandardButton text={buttonText} buttonEvent={buttonEvent} />
+      <StandardButton text={buttonText} />
     </div>
   );
 }

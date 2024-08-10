@@ -151,6 +151,19 @@ export default {
         218: "54.688rem",
         225: "56.25rem",
       },
+      keyframes: {
+        transparentHeader: {
+          "0% ": {
+            background: "rgba(0,0,0,.5)",
+          },
+          "100% ": {
+            background: "color-mix(in srgb, var(--backBase) 100%, transparent)",
+          },
+        },
+      },
+      animation: {
+        transparentHeaderOnScroll: "transparentHeader 0.4s linear forwards",
+      },
     },
   },
   plugins: [],

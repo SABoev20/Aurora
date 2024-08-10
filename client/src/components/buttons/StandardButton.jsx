@@ -1,6 +1,6 @@
 function StandardButton({
   text,
-  buttonEvent = () => alert("Default"),
+  buttonEvent = () => {},
   fontSize = "text-sm",
   big = false,
 }) {

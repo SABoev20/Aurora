@@ -1,9 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { IsLoggedContext } from "../pages";
+import { useUser } from "../services/userService.js";
 
 function HomeAndSearch() {
-  const isLog = useContext(IsLoggedContext);
+  const { data: isLog } = useUser();
 
   return (
     <div
