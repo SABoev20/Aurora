@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
@@ -18,14 +19,16 @@ public class JwtUtil {
         this.decoder = decoder;
     }
 
-    public String generateToken(String uuid, String role) {
+    public String generateToken(String subject, Map<String, Object> customClaims, int expiry) {
         Instant now = Instant.now();
-        JwtClaimsSet claims = JwtClaimsSet.builder()
-                .subject(uuid)
-                .claim("role", role)
+        JwtClaimsSet.Builder claimsBuilder = JwtClaimsSet.builder()
+                .subject(subject)
                 .issuedAt(now)
-                .expiresAt(now.plusSeconds(3600)) // 1 hour expiration
-                .build();
+                .expiresAt(now.plusSeconds(expiry));
+
+        customClaims.forEach(claimsBuilder::claim);
+
+        JwtClaimsSet claims = claimsBuilder.build();
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 

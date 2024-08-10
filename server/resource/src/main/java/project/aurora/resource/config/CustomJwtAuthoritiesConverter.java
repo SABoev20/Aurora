@@ -1,4 +1,4 @@
-package project.aurora.auth.config;
+package project.aurora.resource.config;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
