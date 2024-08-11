@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -17,9 +18,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfig {
     private final RsaKeyProperties jwtConfigProperties;
+    private final JwtTokenCookieFilter jwtTokenCookieFilter;
 
-    public SecurityConfig(RsaKeyProperties jwtConfigProperties) {
+    public SecurityConfig(RsaKeyProperties jwtConfigProperties, JwtTokenCookieFilter jwtTokenCookieFilter) {
         this.jwtConfigProperties = jwtConfigProperties;
+        this.jwtTokenCookieFilter = jwtTokenCookieFilter;
     }
 
     @Bean
@@ -32,6 +35,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+        http.addFilterBefore(jwtTokenCookieFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
