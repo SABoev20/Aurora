@@ -1,6 +1,8 @@
-import Playlists from "./Playlists";
+import LibraryCard from "./LibraryCard.jsx";
+import { useUser } from "../services/userService.js";
 
 function Library() {
+  const { data: isLog } = useUser();
   return (
     <div className="flex h-full w-full flex-col rounded-lg bg-backBase">
       <header className="flex h-20 min-h-20 w-full items-center justify-between pb-6">
@@ -44,7 +46,31 @@ function Library() {
           </svg>
         </span>
       </header>
-      <Playlists />
+      <div className="relative h-full w-full">
+        <div className="absolute bottom-0 left-0 right-0 top-0 mx-auto flex w-[calc(100%-16px)] flex-1 flex-col flex-nowrap gap-7 overflow-y-auto">
+          {isLog ? (
+            <LibraryCard
+              heading={"Create your first playlist"}
+              text={"It's easy, we'll help you"}
+              buttonText={"Create playlist"}
+              buttonEvent={() => alert("Now it should create playlist")}
+            />
+          ) : (
+            <>
+              <LibraryCard
+                heading={"Create your first playlist"}
+                text={"It's easy, we'll help you"}
+                buttonText={"Create playlist"}
+              />
+              <LibraryCard
+                heading={"Let's find some music to listen"}
+                text={"We will keep you updated on the new songs"}
+                buttonText={"Browse songs"}
+              />
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

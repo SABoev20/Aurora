@@ -1,6 +1,6 @@
 import Index from "./pages";
 import Login from "./pages/Login";
-import MainContent from "./components/MainContent";
+import HomeContent from "./components/HomeContent";
 import Search from "./components/Search";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Route, Routes } from "react-router-dom";
@@ -10,7 +10,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Index />}>
-          <Route index element={<MainContent />}></Route>
+          <Route index element={<HomeContent />}></Route>
           <Route path="/search" element={<Search />}></Route>
         </Route>
         <Route path="/login" element={<Login />} />

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useUser } from "../services/userService.js";
 
 function HomeAndSearch() {
-  const { data: isLog } = useUser();
+  const { data: isLog, isLoading } = useUser();
 
   return (
     <div
@@ -28,6 +28,7 @@ function HomeAndSearch() {
       </svg>
       <NavLink
         to="/"
+        end
         className={({ isActive }) =>
           isActive
             ? "[&_p]:text-textBase [&_path]:fill-textBase"
@@ -53,10 +54,11 @@ function HomeAndSearch() {
       </NavLink>
       <NavLink
         to="/search"
+        end
         className={({ isActive }) =>
           isActive
             ? "[&_p]:text-textBase [&_path]:fill-textBase"
-            : "[&_p]:text-textSubdued [&_path]:fill-textSubdued" +
+            : "[&_p]:text-textSubdued [&_path]:fill-textSubdued " +
               " group [&_p]:transition [&_p]:duration-[400ms] hover:[&_p]:text-textBase"
         }
       >

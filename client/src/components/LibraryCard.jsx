@@ -1,6 +1,6 @@
 import StandardButton from "./buttons/StandardButton";
 
-function PlaylistCard({
+function LibraryCard({
   heading = "Default heading",
   text = "Default text",
   buttonText = "Default button text",
@@ -16,4 +16,4 @@ function PlaylistCard({
   );
 }
 
-export default PlaylistCard;
+export default LibraryCard;
