@@ -36,7 +36,7 @@ public class TokenService implements ITokenService {
     @Override
     public String generateAccessToken(User user) {
         HashMap<String, Object> claims = new HashMap<>();
-        claims.put("email", user.getEmail());
+        claims.put("role", user.getRole());
         return jwtUtil.generateToken(user.getUserId().toString(), claims, ACCESS_TOKEN_EXPIRY);
     }
 
