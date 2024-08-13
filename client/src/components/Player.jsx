@@ -6,7 +6,7 @@ function Player() {
   const { data: isLog } = useUser();
 
   const guest = (
-    <Link to="/login" className="cursor-pointer">
+    <Link to="/Signup" className="cursor-pointer">
       <div className="flex h-16 w-full items-center justify-between bg-gradient-to-r from-[#af2896] to-[#509bf5] p-4">
         <div className="flex flex-col">
           <p className="text-sm font-extrabold">Preview of Aurora</p>

@@ -23,7 +23,7 @@ function IndexContentWindowWrapper() {
     <div className="relative h-full w-full rounded-lg bg-backBase">
       <Header isScrolled={isScrolled} position={scrollPosition} />
       <div
-        className="absolute bottom-0 left-0 right-0 top-2 z-10 mx-auto flex w-full flex-1 flex-col flex-nowrap gap-7 overflow-y-auto"
+        className="absolute bottom-0 left-0 right-0 top-2 z-10 mx-auto flex w-full flex-1 flex-col flex-nowrap gap-7 overflow-y-auto pb-4"
         onScroll={handleScroll}
       >
         <Outlet></Outlet>

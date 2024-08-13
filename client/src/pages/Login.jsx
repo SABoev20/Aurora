@@ -37,13 +37,15 @@ function Login() {
       <div className="flex h-screen min-h-[1000px] w-full flex-row justify-center bg-slate-50 pb-7 pt-7 dark:bg-transparent dark:bg-gradient-to-b dark:from-[#ffffff1a] dark:to-[#000000]">
         <div className="w-full max-w-181 rounded-lg bg-backBase">
           <div className="flex w-full justify-center">
-            <img
-              src="https://placehold.co/36x36.png"
-              alt="Aurora logo"
-              className="rounded-full pb-6 pt-8"
-            />
+            <Link to="/" className="cursor-default">
+              <img
+                src="https://placehold.co/36x36.png"
+                alt="Aurora logo"
+                className="rounded-full pb-6 pt-8"
+              />
+            </Link>
           </div>
-          <h1 className="pb-8 text-center text-4xl font-bold">
+          <h1 className="pb-8 text-center text-4xl font-bold tracking-tight">
             Log in to Aurora
           </h1>
           {errors.root && (
@@ -83,21 +85,26 @@ function Login() {
           >
             <div className="flex w-full flex-col gap-2">
               <label
-                htmlFor="username"
+                htmlFor="email"
                 className="text-sm font-bold text-textBase"
               >
-                Username
+                Email
               </label>
               <input
                 type="text"
-                placeholder="Username"
-                id="username"
+                placeholder="Email"
+                id="email"
                 className="w-full max-w-80 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
-                {...register("username", {
-                  required: "Please enter your Aurora username.",
+                {...register("email", {
+                  required: "Please enter your Aurora email.",
+                  pattern: {
+                    value:
+                      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: "Please enter valid email",
+                  },
                 })}
               />
-              {errors.username && (
+              {errors.email && (
                 <div className="flex gap-2">
                   <svg
                     className="h-5 w-4 fill-errorColor"
@@ -110,7 +117,7 @@ function Login() {
                     <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"></path>
                     <path d="M7.25 9V4h1.5v5h-1.5zm0 3.026v-1.5h1.5v1.5h-1.5z"></path>
                   </svg>
-                  <p className="text-sm">{errors.username?.message}</p>
+                  <p className="text-sm">{errors.email?.message}</p>
                 </div>
               )}
             </div>
@@ -159,6 +166,14 @@ function Login() {
                   className="w-full max-w-80 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
                   {...register("password", {
                     required: "Please enter your password",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters long",
+                    },
+                    maxLength: {
+                      value: 50,
+                      message: "Password cannot be longer than 50 characters",
+                    },
                   })}
                 />
               </div>
@@ -183,7 +198,7 @@ function Login() {
             <button
               disabled={isSubmitting}
               type="submit"
-              className="text mt-6 w-full rounded-3xl bg-accentColorSubdued px-5 py-3 text-base font-bold text-textBase hover:scale-105 hover:bg-accentColor"
+              className="text mt-6 w-full rounded-3xl bg-accentColorSubdued px-5 py-3 text-base font-bold text-[#FFFFFF] hover:scale-105 hover:bg-accentColor"
             >
               {isSubmitting ? "Loading..." : "Log in"}
             </button>
@@ -196,7 +211,7 @@ function Login() {
           <div className="m-auto mb-8 mt-8 h-[1px] w-[90%] max-w-131 bg-[#292929]"></div>
           <p className="mt-16 text-center text-base text-textSubdued">
             Don't have an account?
-            <Link to="#">
+            <Link to="/signup">
               <span className="pl-2 text-textBase underline hover:text-accentColor">
                 Sign up for Aurora
               </span>

@@ -1,13 +1,31 @@
 import LibraryCard from "./LibraryCard.jsx";
 import { useUser } from "../services/userService.js";
+import { useContext } from "react";
+import { LibraryToggle } from "./Sidebar.jsx";
 
 function Library() {
   const { data: isLog } = useUser();
+  const { toggle, changeToggle } = useContext(LibraryToggle);
 
   return (
     <div className="flex h-full w-full flex-col rounded-lg bg-backBase">
-      <header className="flex h-20 min-h-20 w-full items-center justify-between pb-6">
-        <div className="group flex cursor-pointer gap-3 pl-6">
+      <header
+        className={
+          "flex h-20 min-h-20 w-full items-center justify-between pb-6" +
+          (toggle ? " flex-col justify-center gap-5 pt-5" : null)
+        }
+      >
+        <button
+          className={
+            "group flex cursor-pointer gap-3 pl-6" +
+            (toggle ? " pl-0" : " pl-6")
+          }
+          onClick={() => {
+            if (isLog) {
+              changeToggle();
+            }
+          }}
+        >
           <span aria-hidden="true">
             <svg
               data-encore-id="icon"
@@ -22,11 +40,20 @@ function Library() {
               ></path>
             </svg>
           </span>
-          <p className="font-bold text-textSubdued transition duration-[400ms] hover:text-textBase">
-            Your Library
-          </p>
-        </div>
-        <span className="group mr-5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full hover:bg-backElevatedBase">
+          {toggle ? (
+            ""
+          ) : (
+            <p className="font-bold text-textSubdued transition duration-[400ms] hover:text-textBase">
+              Your Library
+            </p>
+          )}
+        </button>
+        <span
+          className={
+            "group mr-5 flex min-h-8 w-8 cursor-pointer items-center justify-center rounded-full hover:bg-backElevatedBase" +
+            (toggle ? " mr-0" : "")
+          }
+        >
           <svg
             data-encore-id="icon"
             role="img"
@@ -50,12 +77,16 @@ function Library() {
       <div className="relative h-full w-full">
         <div className="absolute bottom-0 left-0 right-0 top-0 mx-auto flex w-[calc(100%-16px)] flex-1 flex-col flex-nowrap gap-7 overflow-y-auto">
           {isLog ? (
-            <LibraryCard
-              heading={"Create your first playlist"}
-              text={"It's easy, we'll help you"}
-              buttonText={"Create playlist"}
-              buttonEvent={() => alert("Now it should create playlist")}
-            />
+            toggle ? (
+              ""
+            ) : (
+              <LibraryCard
+                heading={"Create your first playlist"}
+                text={"It's easy, we'll help you"}
+                buttonText={"Create playlist"}
+                buttonEvent={() => alert("Now it should create playlist")}
+              />
+            )
           ) : (
             <>
               <LibraryCard
