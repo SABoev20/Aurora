@@ -12,6 +12,9 @@ export default {
         textSubdued: "var(--textSubdued)",
         accentColor: "var(--accentColor)",
         accentColorSubdued: "var(--accentColorSubdued)",
+        headerColorForAnimation: "var(--headerColorForAnimation)",
+        errorColor: "var(--errorColor)",
+        errorColorEssential: "var(--errorColorEssential)",
       },
       width: {
         100: "25rem",
@@ -166,5 +169,6 @@ export default {
       },
     },
   },
+
   plugins: [],
 };

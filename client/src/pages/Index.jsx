@@ -5,7 +5,7 @@ import IndexContentWindowWrapper from "../components/IndexContentWindowWrapper";
 
 function Index() {
   return (
-    <div className="flex h-screen min-h-150 w-full min-w-193 flex-col gap-2 bg-backFiller p-2">
+    <div className="relative flex h-screen min-h-150 w-full min-w-193 flex-col gap-2 bg-backFiller p-2">
       <div className="flex h-full w-full gap-2">
         <Sidebar />
         <IndexContentWindowWrapper>

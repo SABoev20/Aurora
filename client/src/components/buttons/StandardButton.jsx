@@ -7,7 +7,7 @@ function StandardButton({
   return (
     <button
       className={
-        "flex items-center rounded-3xl bg-textBase px-4 py-1.5 font-bold text-backFiller hover:scale-105 hover:bg-[#F0F0F0] " +
+        "flex items-center rounded-3xl bg-textBase px-4 py-1.5 font-bold text-backFiller hover:scale-105 " +
         fontSize +
         (big ? " px-7 py-3" : "")
       }

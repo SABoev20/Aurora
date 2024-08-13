@@ -11,6 +11,7 @@ function LibraryCard({
         <p className="font-bold">{heading}</p>
         <p className="text-sm">{text}</p>
       </div>
+
       <StandardButton text={buttonText} />
     </div>
   );

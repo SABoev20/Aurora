@@ -6,15 +6,22 @@
 @layer base {
   :root {
     --backFiller: #ffffff;
-    --backBase: #f3f3f3;
-    --backElevatedBase: #dddddd;
+    --backBase: #e7e7e7;
+    --backElevatedBase: #d7d7d7;
     --backHighlight: #dddddd;
     --textBase: #000000;
     --textSubdued: #3f3f3f;
-    --accentColor: #9e4fff;
-    --accentColorSubdued: #7606ff;
+    --headerColorForAnimation: #d2cfcf;
+
+    /*Colors that don't change*/
+    --accentColor: #9035ff;
+    --accentColorSubdued: #831dff;
+    --errorColor: #f15e6c;
+    --errorColorEssential: #de1327;
   }
 
+  /*  --accentColor: #9e4fff;
+    --accentColorSubdued: #831dff;*/
   @media (prefers-color-scheme: dark) {
     :root {
       --backFiller: #000000;
@@ -23,32 +30,10 @@
       --backHighlight: #1f1f1f;
       --textBase: #ffffff;
       --textSubdued: #b3b3b3;
-      --accentColor: #9e4fff;
-      --accentColorSubdued: #7606ff;
+
+      --headerColorForAnimation: #101010;
     }
   }
-}
-
-:root[data-theme="light"] {
-  --backFiller: #ffffff;
-  --backBase: #f3f3f3;
-  --backElevatedBase: #dddddd;
-  --backHighlight: #dddddd;
-  --textBase: #000000;
-  --textSubdued: #3f3f3f;
-  --accentColor: #9e4fff;
-  --accentColorSubdued: #7606ff;
-}
-
-:root[data-theme="dark"] {
-  --backFiller: #000000;
-  --backBase: #121212;
-  --backElevatedBase: #1f1f1f;
-  --backHighlight: #1f1f1f;
-  --textBase: #ffffff;
-  --textSubdued: #b3b3b3;
-  --accentColor: #9e4fff;
-  --accentColorSubdued: #7606ff;
 }
 
 html {

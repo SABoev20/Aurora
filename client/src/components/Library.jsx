@@ -3,6 +3,7 @@ import { useUser } from "../services/userService.js";
 
 function Library() {
   const { data: isLog } = useUser();
+
   return (
     <div className="flex h-full w-full flex-col rounded-lg bg-backBase">
       <header className="flex h-20 min-h-20 w-full items-center justify-between pb-6">
@@ -62,6 +63,7 @@ function Library() {
                 text={"It's easy, we'll help you"}
                 buttonText={"Create playlist"}
               />
+
               <LibraryCard
                 heading={"Let's find some music to listen"}
                 text={"We will keep you updated on the new songs"}

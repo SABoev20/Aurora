@@ -1,6 +1,5 @@
 import StandardButton from "./buttons/StandardButton";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useUser } from "../services/userService.js";
 
 function Player() {
