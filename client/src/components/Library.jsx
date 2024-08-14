@@ -12,13 +12,13 @@ function Library() {
       <header
         className={
           "flex h-20 min-h-20 w-full items-center justify-between pb-6" +
-          (toggle ? " flex-col justify-center gap-5 pt-5" : null)
+          (toggle ? " min-h-28 flex-col justify-center gap-5 pb-0 pt-5" : null)
         }
       >
         <button
           className={
-            "group flex cursor-pointer gap-3 pl-6" +
-            (toggle ? " pl-0" : " pl-6")
+            "group flex cursor-pointer gap-3 pl-0" +
+            (toggle ? " gap-0 pl-0" : " pl-6")
           }
           onClick={() => {
             if (isLog) {
@@ -50,8 +50,8 @@ function Library() {
         </button>
         <span
           className={
-            "group mr-5 flex min-h-8 w-8 cursor-pointer items-center justify-center rounded-full hover:bg-backElevatedBase" +
-            (toggle ? " mr-0" : "")
+            "group flex min-h-8 w-8 cursor-pointer items-center justify-center rounded-full hover:bg-backElevatedBase" +
+            (toggle ? " mr-0" : " mr-5")
           }
         >
           <svg

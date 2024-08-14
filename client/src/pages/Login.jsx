@@ -23,7 +23,6 @@ function Login() {
       throw new Error(
         "That is custom error that should be sent from the server ",
       );
-      console.log(data);
     } catch (e) {
       setError("root", { message: e.message });
     }
@@ -100,7 +99,8 @@ function Login() {
                   pattern: {
                     value:
                       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                    message: "Please enter valid email",
+                    message:
+                      "This email is invalid. Make sure it's written like example@email.com",
                   },
                 })}
               />

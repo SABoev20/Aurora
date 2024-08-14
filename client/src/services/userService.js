@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 const user = true;
 
 function wait() {
-  return new Promise((resolve) => resolve(false));
+  return new Promise((resolve) => resolve(true));
 }
 
 export const useUser = () => {
