@@ -1,22 +1,17 @@
 import HomeAndSearch from "./HomeAndSearch";
 import Library from "./Library";
-import useToggle from "./../hooks/useToggle.js";
-import { createContext } from "react";
-
-export const LibraryToggle = createContext();
+import { useContext } from "react";
+import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.jsx";
 
 function Sidebar() {
-  const { toggle, changeToggle } = useToggle();
-
+  const { toggle } = useContext(LibraryToggleContext);
   return (
-    <LibraryToggle.Provider value={{ toggle, changeToggle }}>
-      <nav
-        className={"flex h-full w-106 flex-col gap-2 " + (toggle ? "w-20" : "")}
-      >
-        <HomeAndSearch />
-        <Library />
-      </nav>
-    </LibraryToggle.Provider>
+    <nav
+      className={"flex h-full w-106 flex-col gap-2 " + (toggle ? "w-20" : "")}
+    >
+      <HomeAndSearch />
+      <Library />
+    </nav>
   );
 }
 

@@ -1,9 +1,10 @@
 import StandardButton from "./buttons/StandardButton";
 import { Link } from "react-router-dom";
-import { useUser } from "../services/userService.js";
+import { LoggedUserContext } from "./../contexts/LoggedUserProvider.jsx";
+import { useContext } from "react";
 
 function Player() {
-  const { data: isLog } = useUser();
+  const { isLogged } = useContext(LoggedUserContext);
 
   const guest = (
     <Link to="/Signup" className="cursor-pointer">
@@ -24,6 +25,6 @@ function Player() {
     </Link>
   );
 
-  return isLog ? <div className="h-20 w-full bg-backBase"></div> : guest;
+  return isLogged ? <div className="h-20 w-full bg-backBase"></div> : guest;
 }
 export default Player;

@@ -1,11 +1,11 @@
 import LibraryCard from "./LibraryCard.jsx";
-import { useUser } from "../services/userService.js";
+import { LoggedUserContext } from "./../contexts/LoggedUserProvider.jsx";
 import { useContext } from "react";
-import { LibraryToggle } from "./Sidebar.jsx";
+import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.jsx";
 
 function Library() {
-  const { data: isLog } = useUser();
-  const { toggle, changeToggle } = useContext(LibraryToggle);
+  const { isLogged } = useContext(LoggedUserContext);
+  const { toggle, changeToggle } = useContext(LibraryToggleContext);
 
   return (
     <div className="flex h-full w-full flex-col rounded-lg bg-backBase">
@@ -21,7 +21,7 @@ function Library() {
             (toggle ? " gap-0 pl-0" : " pl-6")
           }
           onClick={() => {
-            if (isLog) {
+            if (isLogged) {
               changeToggle();
             }
           }}
@@ -76,7 +76,7 @@ function Library() {
       </header>
       <div className="relative h-full w-full">
         <div className="absolute bottom-0 left-0 right-0 top-0 mx-auto flex w-[calc(100%-16px)] flex-1 flex-col flex-nowrap gap-7 overflow-y-auto">
-          {isLog ? (
+          {isLogged ? (
             toggle ? (
               ""
             ) : (

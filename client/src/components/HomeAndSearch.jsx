@@ -1,17 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { useUser } from "../services/userService.js";
 import { useContext } from "react";
-import { LibraryToggle } from "./Sidebar.jsx";
+import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.jsx";
+import { LoggedUserContext } from "./../contexts/LoggedUserProvider.jsx";
 
 function HomeAndSearch() {
-  const { data: isLog, isLoading } = useUser();
-  const { toggle, changeToggle } = useContext(LibraryToggle);
+  const { toggle, changeToggle } = useContext(LibraryToggleContext);
+  const { isLogged } = useContext(LoggedUserContext);
 
   return (
     <div
       className={
         "flex w-full flex-col items-start justify-center gap-5 rounded-lg bg-backBase pl-6 " +
-        (isLog ? " h-28 min-h-28 [&>:first-child]:hidden" : " h-48 min-h-40")
+        (isLogged ? " h-28 min-h-28 [&>:first-child]:hidden" : " h-48 min-h-40")
       }
     >
       <svg
