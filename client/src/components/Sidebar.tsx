@@ -7,7 +7,7 @@ function Sidebar() {
   const { toggle } = useContext(LibraryToggleContext);
   return (
     <nav
-      className={"flex h-full w-106 flex-col gap-2 " + (toggle ? "w-20" : "")}
+      className={"flex h-full w-131 flex-col gap-2 " + (toggle ? "w-20" : "")}
     >
       <HomeAndSearch />
       <Library />

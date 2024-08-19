@@ -165,7 +165,7 @@ export default {
         },
       },
       animation: {
-        transparentHeaderOnScroll: "transparentHeader 0.4s linear forwards",
+        transparentHeaderOnScroll: "transparentHeader 0.5s linear forwards",
       },
     },
   },
