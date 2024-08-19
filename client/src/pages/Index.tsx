@@ -1,9 +1,9 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar.js";
 import { Outlet } from "react-router-dom";
-import Player from "./../components/Player";
-import IndexContentWindowWrapper from "../components/IndexContentWindowWrapper";
-import { LoggedUserProvider } from "./../contexts/LoggedUserProvider";
-import { LibraryToggleProvider } from "../contexts/LibraryToggleProvider.jsx";
+import Player from "../components/Player.js";
+import IndexContentWindowWrapper from "../components/IndexContentWindowWrapper.js";
+import { LoggedUserProvider } from "../contexts/LoggedUserProvider.js";
+import { LibraryToggleProvider } from "../contexts/LibraryToggleProvider.js";
 
 function Index() {
   return (

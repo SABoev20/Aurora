@@ -1,7 +1,7 @@
-import HomeAndSearch from "./HomeAndSearch";
-import Library from "./Library";
+import HomeAndSearch from "./HomeAndSearch.js";
+import Library from "./Library.js";
 import { useContext } from "react";
-import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.jsx";
+import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.js";
 
 function Sidebar() {
   const { toggle } = useContext(LibraryToggleContext);

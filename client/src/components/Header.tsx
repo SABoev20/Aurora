@@ -2,7 +2,11 @@ import StandardButton from "./buttons/StandardButton";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function Header({ isScrolled }) {
+interface Props {
+  isScrolled: boolean;
+}
+
+function Header({ isScrolled }: Props) {
   const navigate = useNavigate();
 
   function goBack() {

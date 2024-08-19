@@ -2,9 +2,14 @@ import SocialMediaLoginAndRegisterButton from "../components/buttons/SocialMedia
 import google from "./../assets/icons/google.png";
 import facebook from "./../assets/icons/facebook.png";
 import apple from "./../assets/icons/apple.png";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+
+type FormFields = {
+  email: string;
+  password: string;
+};
 
 function Login() {
   // Set page title
@@ -15,16 +20,22 @@ function Login() {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<FormFields>();
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       throw new Error(
         "That is custom error that should be sent from the server ",
       );
-    } catch (e) {
-      setError("root", { message: e.message });
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        // Now TypeScript knows `e` is an `Error`
+        setError("root", { message: e.message });
+      } else {
+        // Handle the case where `e` is not an `Error`
+        setError("root", { message: "An unknown error occurred" });
+      }
     }
   };
 
@@ -140,7 +151,7 @@ function Login() {
                     <svg
                       data-encore-id="icon"
                       role="img"
-                      aria-hidden="true "
+                      aria-hidden="true"
                       className="h-6 w-6 fill-textSubdued"
                       viewBox="0 0 24 24"
                     >

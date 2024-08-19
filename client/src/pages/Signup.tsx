@@ -3,8 +3,17 @@ import SocialMediaLoginAndRegisterButton from "../components/buttons/SocialMedia
 import google from "./../assets/icons/google.png";
 import facebook from "./../assets/icons/facebook.png";
 import apple from "./../assets/icons/apple.png";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+
+type FormFields = {
+  email: string;
+  password: string;
+  username: string;
+  day: number;
+  month: string;
+  year: number;
+};
 
 function Signup() {
   // Set page title
@@ -17,27 +26,34 @@ function Signup() {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<FormFields>();
 
-  const goBackOneStep = (e) => {
+  const goBackOneStep = (e: React.MouseEvent) => {
     e.preventDefault();
     setRegisterStrep(registerStep - 1);
     console.log(registerStep);
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
       console.log(registerStep);
       if (registerStep == 3) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log(data);
         throw new Error(
           "That is custom error that should be sent from the server ",
         );
       } else {
         setRegisterStrep((prev) => prev + 1);
       }
-    } catch (e) {
-      setError("root", { message: e.message });
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        // Now TypeScript knows `e` is an `Error`
+        setError("root", { message: e.message });
+      } else {
+        // Handle the case where `e` is not an `Error`
+        setError("root", { message: "An unknown error occurred" });
+      }
     }
   };
   // For the password to be visible
@@ -162,7 +178,7 @@ function Signup() {
                             <svg
                               data-encore-id="icon"
                               role="img"
-                              aria-hidden="true "
+                              aria-hidden="true"
                               className="h-6 w-6 fill-textSubdued"
                               viewBox="0 0 24 24"
                             >
@@ -183,7 +199,6 @@ function Signup() {
                         </button>
                         <input
                           type={visible ? "text" : "password"}
-                          placeholder="Password"
                           id="password"
                           className="w-full max-w-80 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
                           {...register("password", {
@@ -249,20 +264,22 @@ function Signup() {
                           Step 2 of 3
                         </p>
                         <p className="text-base font-bold text-textBase">
-                          Think of a username
+                          Think of a name
                         </p>
                       </div>
                     </div>
-                    <div className="flex w-full flex-col gap-2">
+                    <div className="flex w-full flex-col gap-2 pt-4">
                       <label
                         htmlFor="username"
                         className="text-sm font-bold text-textBase"
                       >
-                        Username
+                        Name
+                        <p className="text-sm font-normal text-textSubdued">
+                          This name will appear on your profile
+                        </p>
                       </label>
                       <input
                         type="text"
-                        placeholder="Username"
                         id="username"
                         className="w-full max-w-80 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
                         {...register("username", {
@@ -293,6 +310,146 @@ function Signup() {
                             <path d="M7.25 9V4h1.5v5h-1.5zm0 3.026v-1.5h1.5v1.5h-1.5z"></path>
                           </svg>
                           <p className="text-sm">{errors.username?.message}</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex w-full flex-col gap-2 pt-5">
+                      <label
+                        htmlFor="dateOFBirth"
+                        className="text-sm font-bold text-textBase"
+                      >
+                        Date of birth
+                      </label>
+                      <div className="flex w-full max-w-80 justify-between gap-2">
+                        <input
+                          type="text"
+                          minLength={2}
+                          maxLength={2}
+                          placeholder="dd"
+                          id="dateOFBirth"
+                          className="w-full max-w-16 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
+                          {...register("day", {
+                            required: "Please enter your day of birth.",
+                            pattern: {
+                              value: /^(0|[1-9]\d*)(\.\d+)?$/,
+                              message: "Please use only numbers",
+                            },
+                            min: {
+                              value: "0",
+                              message: "It should be between 0 and 31",
+                            },
+                            max: {
+                              value: "31",
+                              message: "It should be between 0 and 31",
+                            },
+                          })}
+                        />
+                        <div className="relative flex w-full items-center bg-transparent">
+                          <select
+                            {...register("month", {
+                              required: "Please enter your month of birth.",
+                            })}
+                            id="month"
+                            name="month"
+                            className="h-12 w-full appearance-none rounded-md bg-backBase px-4 py-3 text-textBase shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
+                          >
+                            <option value="" disabled={undefined} hidden>
+                              Month
+                            </option>
+                            <option value="january">January</option>
+                            <option value="february">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                            <option value="july">July</option>
+                            <option value="august">August</option>
+                            <option value="september">September</option>
+                            <option value="october">October</option>
+                            <option value="november">November</option>
+                            <option value="december">December</option>
+                          </select>
+                          <svg
+                            data-encore-id="icon"
+                            role="img"
+                            aria-hidden="true"
+                            className="pointer-events-none absolute right-4 h-4 w-4 fill-textSubdued"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M.47 4.97a.75.75 0 0 1 1.06 0L8 11.44l6.47-6.47a.75.75 0 1 1 1.06 1.06L8 13.56.47 6.03a.75.75 0 0 1 0-1.06z"></path>
+                          </svg>
+                        </div>
+
+                        <input
+                          type="text"
+                          minLength={4}
+                          maxLength={4}
+                          placeholder="yyyy"
+                          id="dateOFBirth"
+                          className="w-full max-w-24 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
+                          {...register("year", {
+                            required: "Please enter your year of birth.",
+                            pattern: {
+                              value: /^(0|[1-9]\d*)(\.\d+)?$/,
+                              message: "Please use only numbers",
+                            },
+                            max: {
+                              value: new Date().getFullYear(),
+                              message: "You can be that young.",
+                            },
+                            min: {
+                              value: "1930",
+                              message: "You can be that old.",
+                            },
+                          })}
+                        />
+                      </div>
+                      {errors.day && (
+                        <div className="flex gap-2">
+                          <svg
+                            className="h-5 w-4 fill-errorColor"
+                            data-encore-id="icon"
+                            role="img"
+                            aria-label="Error:"
+                            aria-hidden="true"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"></path>
+                            <path d="M7.25 9V4h1.5v5h-1.5zm0 3.026v-1.5h1.5v1.5h-1.5z"></path>
+                          </svg>
+                          <p className="text-sm">{errors.day?.message}</p>
+                        </div>
+                      )}
+                      {errors.year && (
+                        <div className="flex gap-2">
+                          <svg
+                            className="h-5 w-4 fill-errorColor"
+                            data-encore-id="icon"
+                            role="img"
+                            aria-label="Error:"
+                            aria-hidden="true"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"></path>
+                            <path d="M7.25 9V4h1.5v5h-1.5zm0 3.026v-1.5h1.5v1.5h-1.5z"></path>
+                          </svg>
+                          <p className="text-sm">{errors.year?.message}</p>
+                        </div>
+                      )}
+                      {errors.month && (
+                        <div className="flex gap-2">
+                          <svg
+                            className="h-5 w-4 fill-errorColor"
+                            data-encore-id="icon"
+                            role="img"
+                            aria-label="Error:"
+                            aria-hidden="true"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"></path>
+                            <path d="M7.25 9V4h1.5v5h-1.5zm0 3.026v-1.5h1.5v1.5h-1.5z"></path>
+                          </svg>
+                          <p className="text-sm">{errors.month?.message}</p>
                         </div>
                       )}
                     </div>
@@ -347,84 +504,6 @@ function Signup() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex w-full flex-col gap-2">
-                      <label
-                        htmlFor="firstName"
-                        className="text-sm font-bold text-textBase"
-                      >
-                        First name
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="First name"
-                        id="firstName"
-                        className="w-full max-w-80 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
-                        {...register("firstName", {
-                          required: "Please enter your first name.",
-
-                          maxLength: {
-                            value: 30,
-                            message:
-                              "First name cannot be longer than 30 characters",
-                          },
-                        })}
-                      />
-                      {errors.firstName && (
-                        <div className="flex gap-2">
-                          <svg
-                            className="h-5 w-4 fill-errorColor"
-                            data-encore-id="icon"
-                            role="img"
-                            aria-label="Error:"
-                            aria-hidden="true"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"></path>
-                            <path d="M7.25 9V4h1.5v5h-1.5zm0 3.026v-1.5h1.5v1.5h-1.5z"></path>
-                          </svg>
-                          <p className="text-sm">{errors.firstName?.message}</p>
-                        </div>
-                      )}
-                    </div>
-                    <div className="mt-4 flex w-full flex-col gap-2">
-                      <label
-                        htmlFor="lastName"
-                        className="text-sm font-bold text-textBase"
-                      >
-                        Last name
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Last name"
-                        id="lastName"
-                        className="w-full max-w-80 rounded-md bg-transparent px-4 py-3 shadow-[inset_0_0_0_1px_var(--textSubdued)] outline-none duration-75 hover:shadow-[inset_0_0_0_1px_var(--textBase)] focus:shadow-[inset_0_0_0_3px_var(--textBase)]"
-                        {...register("lastName", {
-                          required: "Please enter your last name.",
-
-                          maxLength: {
-                            value: 30,
-                            message:
-                              "Last name cannot be longer than 30 characters",
-                          },
-                        })}
-                      />
-                      {errors.lastName && (
-                        <div className="flex gap-2">
-                          <svg
-                            className="h-5 w-4 fill-errorColor"
-                            data-encore-id="icon"
-                            role="img"
-                            aria-label="Error:"
-                            aria-hidden="true"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"></path>
-                            <path d="M7.25 9V4h1.5v5h-1.5zm0 3.026v-1.5h1.5v1.5h-1.5z"></path>
-                          </svg>
-                          <p className="text-sm">{errors.lastName?.message}</p>
-                        </div>
-                      )}
-                    </div>
                   </div>
                 </div>
               );
@@ -438,7 +517,7 @@ function Signup() {
             type="submit"
             className="text mt-6 w-full rounded-3xl bg-accentColorSubdued px-5 py-3 text-base font-bold text-[#FFFFFF] hover:scale-105 hover:bg-accentColor"
           >
-            {isSubmitting ? "Loading..." : "Log in"}
+            {isSubmitting ? "Loading..." : "Sign up"}
           </button>
         </form>
         {(() => {

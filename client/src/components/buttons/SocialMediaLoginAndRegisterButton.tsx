@@ -1,8 +1,14 @@
+interface Props {
+  text: string;
+  icon: string;
+  buttonEvent?:() => void;
+}
+
 function SocialMediaLoginAndRegisterButton({
   text,
-  icon = "https://placehold.co/24x24.png",
-  buttonEvent = () => {},
-}) {
+  icon,
+  buttonEvent,
+}: Props) {
   return (
     <button
       onClick={buttonEvent}

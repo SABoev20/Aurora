@@ -1,6 +1,6 @@
-import StandardButton from "./buttons/StandardButton";
+import StandardButton from "./buttons/StandardButton.js";
 import { Link } from "react-router-dom";
-import { LoggedUserContext } from "./../contexts/LoggedUserProvider.jsx";
+import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
 import { useContext } from "react";
 
 function Player() {

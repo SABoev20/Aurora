@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.jsx";
-import { LoggedUserContext } from "./../contexts/LoggedUserProvider.jsx";
+import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.js";
+import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
 
 function HomeAndSearch() {
-  const { toggle, changeToggle } = useContext(LibraryToggleContext);
+  const { toggle } = useContext(LibraryToggleContext);
   const { isLogged } = useContext(LoggedUserContext);
 
   return (

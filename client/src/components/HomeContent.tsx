@@ -1,11 +1,12 @@
 import { useState } from "react";
 
 function HomeContent() {
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-  const handleScroll = (e) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.target;
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.currentTarget as HTMLDivElement;
+    const { scrollTop, scrollHeight, clientHeight } = target;
     const position = Math.ceil(
       (scrollTop / (scrollHeight - clientHeight)) * 100,
     );

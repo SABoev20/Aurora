@@ -1,9 +1,16 @@
+interface Props {
+  text: string;
+  fontSize?: string;
+  big?: boolean;
+  buttonEvent?: () => void;
+}
+
 function StandardButton({
   text,
-  buttonEvent = () => {},
+  buttonEvent,
   fontSize = "text-sm",
   big = false,
-}) {
+}: Props) {
   return (
     <button
       className={

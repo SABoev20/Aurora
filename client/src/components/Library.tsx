@@ -1,7 +1,7 @@
-import LibraryCard from "./LibraryCard.jsx";
-import { LoggedUserContext } from "./../contexts/LoggedUserProvider.jsx";
+import LibraryCard from "./LibraryCard.js";
+import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
 import { useContext } from "react";
-import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.jsx";
+import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.js";
 
 function Library() {
   const { isLogged } = useContext(LoggedUserContext);
@@ -84,7 +84,6 @@ function Library() {
                 heading={"Create your first playlist"}
                 text={"It's easy, we'll help you"}
                 buttonText={"Create playlist"}
-                buttonEvent={() => alert("Now it should create playlist")}
               />
             )
           ) : (
