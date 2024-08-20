@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import { useState } from "react";
 import React, { ReactNode } from "react";
@@ -10,7 +9,6 @@ interface IndexContentWindowWrapperProps {
 function IndexContentWindowWrapper({
   children,
 }: IndexContentWindowWrapperProps) {
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -24,7 +22,6 @@ function IndexContentWindowWrapper({
     } else {
       setIsScrolled(false);
     }
-    setScrollPosition(position);
   };
 
   return (
