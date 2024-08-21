@@ -1,47 +1,25 @@
 import ArtistOrPlaylist from "./ArtistOrPlaylist";
 import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
 import { useContext } from "react";
-import { FastAverageColor } from "fast-average-color";
-import img from "./../assets/imageToTest.png";
-import img2 from "./../assets/imageToTest2.png";
 import MiniPlaylist from "./MiniPlaylist.js";
+import { extractColors } from "extract-colors";
 
 const root = document.documentElement;
 
 function HomeContent() {
   document.title = "Aurora - Web player: Music for everyone";
 
-  function getDominantColor(imageObject: HTMLImageElement) {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = 1;
-    canvas.height = 1;
-    try {
-      ctx?.drawImage(imageObject, 0, 0, 1, 1);
-
-      const imageData = ctx?.getImageData(0, 0, 1, 1);
-
-      if (!imageData) {
-        console.error("Failed to retrieve image data.");
-        return null;
-      }
-
-      const i = imageData.data;
-
-      if (!i || i.length < 4) {
-        console.error("Invalid image data.");
-        return null;
-      }
-
-      const rgbaColor = `rgba(${i[0]},${i[1]},${i[2]},${i[3]})`;
-      return rgbaColor;
-    } catch (e) {
-      return null;
-    }
-  }
+  const options = {
+    distance: 0.3,
+  };
   const handleMouseEnter = (image: HTMLImageElement) => {
-    const rgb = getDominantColor(image);
-    root.style.setProperty("--headerBackgroundGradient", rgb);
+    extractColors(image, options)
+      .then((result) => {
+        root.style.setProperty("--headerBackgroundGradient", result[0].hex);
+      })
+      .catch((error) => {
+        console.error(error); // Logs any errors that occurred
+      });
   };
 
   const handleMouseLeave = () => {
@@ -139,25 +117,25 @@ function HomeContent() {
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+            image="http://localhost:5173/imageToTest3.png"
             albumName="to have"
           />
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image={img}
+            image={"http://localhost:5173/imageToTest.png"}
             albumName="to have"
           />
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image={img2}
+            image={"http://localhost:5173/imageToTest2.png"}
             albumName="to have"
           />
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image="https://www.sfcustomizables.com/cdn/shop/products/BlurBackgroundMusicTimer2000x2000-01_1800x1800.jpg?v=1645505984"
+            image="http://localhost:5173/imageToTest4.png"
             albumName="to have"
           />
         </div>
@@ -165,25 +143,25 @@ function HomeContent() {
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+            image="http://localhost:5173/imageToTest5.png"
             albumName="to have"
           />
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+            image={"http://localhost:5173/imageToTest6.png"}
             albumName="to have"
           />
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+            image={"http://localhost:5173/imageToTest7.png"}
             albumName="to have"
           />
           <MiniPlaylist
             handleMouseLeave={handleMouseLeave}
             handleMouseEnter={handleMouseEnter}
-            image="https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg"
+            image="http://localhost:5173/imageToTest8.png"
             albumName="to have"
           />
         </div>

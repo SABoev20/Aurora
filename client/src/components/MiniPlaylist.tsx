@@ -18,7 +18,7 @@ function MiniPlaylist({
   return (
     <div
       className={
-        "flex w-full max-w-[340px] cursor-pointer items-center rounded-l-[4px] bg-backgroundTintedBase hover:bg-backgroundTintedHighlighted"
+        "flex w-full max-w-[440px] cursor-pointer items-center rounded-l-[4px] bg-backgroundTintedBase hover:bg-backgroundTintedHighlighted"
       }
       onMouseEnter={() => {
         if (imgRef.current) {

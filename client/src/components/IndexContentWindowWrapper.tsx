@@ -28,7 +28,7 @@ function IndexContentWindowWrapper({
     <div className="relative h-full w-full rounded-lg bg-backBase">
       <Header isScrolled={isScrolled} />
       <div
-        className="bg-headerBackgroundGradient underHeaderGradient absolute top-0 z-10 h-80 w-full rounded-t-lg bg-gradient-to-b from-[#00000099] from-10% to-backBase"
+        className="underHeaderGradient from-3% absolute top-0 z-10 h-80 w-full rounded-t-lg bg-headerBackgroundGradient bg-gradient-to-b from-[#00000099] to-backBase"
         id="underHeaderGradientId"
       ></div>
       <div
