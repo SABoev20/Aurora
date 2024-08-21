@@ -11,13 +11,15 @@
     --backHighlight: #dddddd;
     --textBase: #000000;
     --textSubdued: #3f3f3f;
-    --headerColorForAnimation: #d2cfcf;
+    --headerBackgroundGradient: #535353;
 
     /*Colors that don't change*/
     --accentColor: #9035ff;
     --accentColorSubdued: #831dff;
     --errorColor: #f15e6c;
     --errorColorEssential: #de1327;
+    --backgroundTintedBase: hsla(0, 0%, 100%, 0.1);
+    --backgroundTintedHighlighted: hsla(0, 0%, 100%, 0.14);
   }
 
   /*  --accentColor: #9e4fff;
@@ -74,6 +76,9 @@ input[type="range"]::-ms-thumb {
   border-color: transparent;
   background: var(--textBase);
 }
-input[type="range"] {
-  accent-color: green;
+
+.underHeaderGradient {
+  transition:
+    background-color 0.9s,
+    opacity 0.4s ease-out;
 }

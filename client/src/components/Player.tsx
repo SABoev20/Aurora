@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import Music from "./Music.mp3";
+import Music from "./../assets/Music.mp3";
 
 function Player() {
   const { isLogged } = useContext(LoggedUserContext);

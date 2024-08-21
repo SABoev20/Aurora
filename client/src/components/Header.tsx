@@ -1,6 +1,8 @@
 import StandardButton from "./buttons/StandardButton";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
+import { useContext } from "react";
 
 interface Props {
   isScrolled: boolean;
@@ -8,6 +10,8 @@ interface Props {
 
 function Header({ isScrolled }: Props) {
   const navigate = useNavigate();
+
+  const { isLogged } = useContext(LoggedUserContext);
 
   function goBack() {
     if (window.history.state && window.history.state.idx > 0) {
@@ -21,13 +25,15 @@ function Header({ isScrolled }: Props) {
     navigate(1);
   }
 
-  const guest = (
+  return (
     <div
       className={
         "absolute left-0 top-0 z-30 flex h-16 w-full items-center justify-between rounded-t-lg transition " +
         (isScrolled
           ? " animate-transparentHeaderOnScroll"
-          : " bg-headerColorForAnimation")
+          : isLogged
+            ? " "
+            : " bg-backBase")
       }
     >
       <div className="flex h-full items-center gap-2 pl-6">
@@ -64,20 +70,22 @@ function Header({ isScrolled }: Props) {
           </svg>
         </button>
       </div>
-      <div className="flex h-full items-center gap-6 pr-7">
-        <Link to="/signup">
-          <p className="cursor-pointer text-base font-bold text-textSubdued hover:scale-105 hover:text-textBase">
-            Sign up
-          </p>
-        </Link>
-        <Link to="/login">
-          <StandardButton text="Log in" fontSize="text-base" big={true} />
-        </Link>
-      </div>
+      {isLogged ? (
+        <div className="ng-red flex h-full items-center"></div>
+      ) : (
+        <div className="flex h-full items-center gap-6 pr-7">
+          <Link to="/signup">
+            <p className="cursor-pointer text-base font-bold text-textSubdued hover:scale-105 hover:text-textBase">
+              Sign up
+            </p>
+          </Link>
+          <Link to="/login">
+            <StandardButton text="Log in" fontSize="text-base" big={true} />
+          </Link>
+        </div>
+      )}
     </div>
   );
-
-  return guest;
 }
 
 export default Header;

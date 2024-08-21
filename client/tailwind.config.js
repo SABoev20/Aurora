@@ -12,9 +12,11 @@ export default {
         textSubdued: "var(--textSubdued)",
         accentColor: "var(--accentColor)",
         accentColorSubdued: "var(--accentColorSubdued)",
-        headerColorForAnimation: "var(--headerColorForAnimation)",
+        headerBackgroundGradient: "var(--headerBackgroundGradient)",
         errorColor: "var(--errorColor)",
         errorColorEssential: "var(--errorColorEssential)",
+        backgroundTintedBase: "var(--backgroundTintedBase)",
+        backgroundTintedHighlighted: "var(--backgroundTintedHighlighted)",
       },
       width: {
         100: "25rem",
