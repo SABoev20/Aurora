@@ -6,31 +6,42 @@ import img from "./../assets/imageToTest.png";
 import img2 from "./../assets/imageToTest2.png";
 import MiniPlaylist from "./MiniPlaylist.js";
 
-const fac = new FastAverageColor();
 const root = document.documentElement;
 
 function HomeContent() {
-  // Set page title
   document.title = "Aurora - Web player: Music for everyone";
 
-  const handleMouseEnter = (image: string) => {
-    fac
-      .getColorAsync(image, {
-        algorithm: "simple",
+  function getDominantColor(imageObject: HTMLImageElement) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 1;
+    canvas.height = 1;
+    try {
+      ctx?.drawImage(imageObject, 0, 0, 1, 1);
 
-        mode: "precision",
-        ignoredColor: [
-          [255, 255, 255, 255], // white
-          [0, 0, 0, 255], // black
-        ],
-      })
-      .then((color) => {
-        console.log("Average color", color.hex);
-        root.style.setProperty("--headerBackgroundGradient", color.hex);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      const imageData = ctx?.getImageData(0, 0, 1, 1);
+
+      if (!imageData) {
+        console.error("Failed to retrieve image data.");
+        return null;
+      }
+
+      const i = imageData.data;
+
+      if (!i || i.length < 4) {
+        console.error("Invalid image data.");
+        return null;
+      }
+
+      const rgbaColor = `rgba(${i[0]},${i[1]},${i[2]},${i[3]})`;
+      return rgbaColor;
+    } catch (e) {
+      return null;
+    }
+  }
+  const handleMouseEnter = (image: HTMLImageElement) => {
+    const rgb = getDominantColor(image);
+    root.style.setProperty("--headerBackgroundGradient", rgb);
   };
 
   const handleMouseLeave = () => {

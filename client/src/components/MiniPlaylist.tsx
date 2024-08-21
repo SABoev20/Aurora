@@ -1,5 +1,7 @@
+import { useRef } from "react";
+
 interface Props {
-  handleMouseEnter: (img: string) => void;
+  handleMouseEnter: (img: HTMLImageElement) => void;
   handleMouseLeave: () => void;
   image: string;
   albumName: string;
@@ -11,15 +13,22 @@ function MiniPlaylist({
   image,
   albumName,
 }: Props) {
+  const imgRef = useRef<HTMLImageElement | null>(null);
+
   return (
     <div
       className={
         "flex w-full max-w-[340px] cursor-pointer items-center rounded-l-[4px] bg-backgroundTintedBase hover:bg-backgroundTintedHighlighted"
       }
-      onMouseEnter={() => handleMouseEnter(image)}
+      onMouseEnter={() => {
+        if (imgRef.current) {
+          handleMouseEnter(imgRef.current);
+        }
+      }}
       onMouseLeave={handleMouseLeave}
     >
       <img
+        ref={imgRef}
         src={image}
         alt="playlist image"
         className="h-16 w-16 rounded-l-[4px] object-cover"
