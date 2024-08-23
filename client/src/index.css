@@ -82,3 +82,9 @@ input[type="range"]::-ms-thumb {
     background-color 0.9s,
     opacity 0.4s ease-out;
 }
+.playlistGradient {
+  background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%);
+}
+.playlistGradient2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0, var(--backBase) 100%);
+}

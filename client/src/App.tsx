@@ -4,6 +4,8 @@ import HomeContent from "./components/HomeContent";
 import Search from "./components/Search";
 import Signup from "./pages/Signup";
 import { Route, Routes } from "react-router-dom";
+import OpenPlaylist from "./components/OpenPlaylist";
+import PlaylistContentWindowWrapper from "./components/PlaylistContentWindowWrapper";
 
 function App() {
   return (
@@ -12,6 +14,9 @@ function App() {
         <Route path="/" element={<Index />}>
           <Route index element={<HomeContent />}></Route>
           <Route path="/search" element={<Search />}></Route>
+        </Route>
+        <Route element={<PlaylistContentWindowWrapper />}>
+          <Route path="/playlist/:id" element={<OpenPlaylist />}></Route>
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

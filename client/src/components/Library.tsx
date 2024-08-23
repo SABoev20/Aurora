@@ -2,10 +2,36 @@ import LibraryCard from "./LibraryCard.js";
 import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
 import { useContext } from "react";
 import { LibraryToggleContext } from "../contexts/LibraryToggleProvider.js";
+import LibraryPlaylist from "./LibraryPlaylist.js";
 
 function Library() {
   const { isLogged } = useContext(LoggedUserContext);
   const { toggle, changeToggle } = useContext(LibraryToggleContext);
+
+  const guest = (
+    <>
+      <LibraryCard
+        heading={"Create your first playlist"}
+        text={"It's easy, we'll help you"}
+        buttonText={"Create playlist"}
+      />
+
+      <LibraryCard
+        heading={"Let's find some music to listen"}
+        text={"We will keep you updated on the new songs"}
+        buttonText={"Browse songs"}
+      />
+    </>
+  );
+
+  const user = (
+    <LibraryPlaylist
+      image="http://localhost:5173/imageToTest2.png"
+      albumName="to have"
+      author="Zhivko"
+      link={`playlist/toHave`}
+    />
+  );
 
   return (
     <div className="flex h-full w-full flex-col rounded-lg bg-backBase">
@@ -76,31 +102,7 @@ function Library() {
       </header>
       <div className="relative h-full w-full">
         <div className="absolute bottom-0 left-0 right-0 top-0 mx-auto flex w-[calc(100%-16px)] flex-1 flex-col flex-nowrap gap-7 overflow-y-auto">
-          {isLogged ? (
-            toggle ? (
-              ""
-            ) : (
-              <LibraryCard
-                heading={"Create your first playlist"}
-                text={"It's easy, we'll help you"}
-                buttonText={"Create playlist"}
-              />
-            )
-          ) : (
-            <>
-              <LibraryCard
-                heading={"Create your first playlist"}
-                text={"It's easy, we'll help you"}
-                buttonText={"Create playlist"}
-              />
-
-              <LibraryCard
-                heading={"Let's find some music to listen"}
-                text={"We will keep you updated on the new songs"}
-                buttonText={"Browse songs"}
-              />
-            </>
-          )}
+          {isLogged ? (toggle ? "" : user) : guest}
         </div>
       </div>
     </div>
