@@ -5,6 +5,9 @@ import apple from "./../assets/icons/apple.png";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import loginService from "../services/loginService";
+
+const loginSer = new loginService();
 
 type FormFields = {
   email: string;
@@ -24,10 +27,16 @@ function Login() {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      throw new Error(
-        "That is custom error that should be sent from the server ",
-      );
+      try {
+        const loginRequest = await loginSer.login(data.email, data.password);
+      } catch (e: unknown) {
+        if (e instanceof Error) {
+          setError("root", { message: e.message });
+        } else {
+          // Handle the case where `e` is not an `Error`
+          setError("root", { message: "An unknown error occurred" });
+        }
+      }
     } catch (e: unknown) {
       if (e instanceof Error) {
         // Now TypeScript knows `e` is an `Error`

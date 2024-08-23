@@ -15,7 +15,7 @@ interface LoggedUserProviderProps {
 }
 
 const LoggedUserProvider: FC<LoggedUserProviderProps> = ({ children }) => {
-  const { isLogged } = useLoggedUser();
+  const { isLogged, changeIsLogged } = useLoggedUser();
 
   return (
     <LoggedUserContext.Provider value={{ isLogged }}>

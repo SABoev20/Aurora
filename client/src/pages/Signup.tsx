@@ -5,6 +5,9 @@ import facebook from "./../assets/icons/facebook.png";
 import apple from "./../assets/icons/apple.png";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import registerService from "../services/registerService";
+import { LoggedUserContext } from "../contexts/LoggedUserProvider";
+import { useContext } from "react";
 
 type FormFields = {
   email: string;
@@ -19,6 +22,8 @@ function Signup() {
   // Set page title
   document.title = "Signup - Aurora";
 
+  const registerSer = new registerService();
+
   const [registerStep, setRegisterStrep] = useState(0);
 
   const {
@@ -31,18 +36,27 @@ function Signup() {
   const goBackOneStep = (e: React.MouseEvent) => {
     e.preventDefault();
     setRegisterStrep(registerStep - 1);
-    console.log(registerStep);
   };
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
-      console.log(registerStep);
       if (registerStep == 3) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log(data);
-        throw new Error(
-          "That is custom error that should be sent from the server ",
-        );
+        const dateOFBirth = data.year + "-" + data.month + "-" + data.day;
+        try {
+          const registerRequest = await registerSer.register(
+            data.email,
+            data.password,
+            data.username,
+            dateOFBirth,
+          );
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+            setError("root", { message: e.message });
+          } else {
+            // Handle the case where `e` is not an `Error`
+            setError("root", { message: "An unknown error occurred" });
+          }
+        }
       } else {
         setRegisterStrep((prev) => prev + 1);
       }
@@ -331,7 +345,7 @@ function Signup() {
                           {...register("day", {
                             required: "Please enter your day of birth.",
                             pattern: {
-                              value: /^(0|[1-9]\d*)(\.\d+)?$/,
+                              value: /^(0|[0-9]\d*)(\.\d+)?$/,
                               message: "Please use only numbers",
                             },
                             min: {
@@ -356,18 +370,18 @@ function Signup() {
                             <option value="" disabled={undefined} hidden>
                               Month
                             </option>
-                            <option value="january">January</option>
-                            <option value="february">February</option>
-                            <option value="march">March</option>
-                            <option value="april">April</option>
-                            <option value="may">May</option>
-                            <option value="june">June</option>
-                            <option value="july">July</option>
-                            <option value="august">August</option>
-                            <option value="september">September</option>
-                            <option value="october">October</option>
-                            <option value="november">November</option>
-                            <option value="december">December</option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                           </select>
                           <svg
                             data-encore-id="icon"
