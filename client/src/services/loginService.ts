@@ -6,6 +6,7 @@ export default class loginService {
       email,
       password,
     });
+    console.log(response.status);
     return response.data;
   }
 }

@@ -73,6 +73,19 @@ function Signup() {
   // For the password to be visible
   const [visible, setVisible] = useState(false);
 
+  const handleLogin = () => {
+    const scope = "user";
+
+    const githubAuthUrl = new URL("https://github.com/login/oauth/authorize");
+    githubAuthUrl.searchParams.append("client_id", "Ov23lil8inPgiBDp0rwD");
+    githubAuthUrl.searchParams.append(
+      "redirect_uri",
+      "http://localhost:5173/oauth2/callback",
+    );
+    githubAuthUrl.searchParams.append("scope", scope);
+    window.location.href = githubAuthUrl.toString();
+  };
+
   return (
     <div className="flex h-screen min-h-175 w-full flex-row justify-center bg-backBase pb-7 pt-3">
       <div className="w-full max-w-80 rounded-lg bg-backBase">
@@ -548,10 +561,13 @@ function Signup() {
                     text="Continue with Google"
                     icon={google}
                   />
-                  <SocialMediaLoginAndRegisterButton
-                    text="Continue with Facebook"
-                    icon={facebook}
-                  />
+                  <Link to="/">
+                    <SocialMediaLoginAndRegisterButton
+                      text="Continue with GitHub"
+                      icon={facebook}
+                      buttonEvent={handleLogin}
+                    />
+                  </Link>
                   <SocialMediaLoginAndRegisterButton
                     text="Continue with Apple"
                     icon={apple}

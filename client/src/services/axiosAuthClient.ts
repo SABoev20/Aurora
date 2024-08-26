@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:9090/",
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
     // "X-XSRF-TOKEN": Cookies.get("XSRF-TOKEN"), // Add CSRF token to headers

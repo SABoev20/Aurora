@@ -3,23 +3,31 @@ import { Outlet } from "react-router-dom";
 import Player from "../components/Player.js";
 import IndexContentWindowWrapper from "../components/IndexContentWindowWrapper.js";
 import { LoggedUserProvider } from "../contexts/LoggedUserProvider.js";
-import { LibraryToggleProvider } from "../contexts/LibraryToggleProvider.js";
+
 import refreshTokenService from "../services/refreshTokenService.js";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { LibraryToggleProvider } from "../contexts/LibraryToggleProvider.js";
 const refreshSer = new refreshTokenService();
+
 interface ErrorResponse {
   error: string;
   message: string;
 }
 function Index() {
+  const { isLogged, changeIsLogged } = useContext(LoggedUserContext);
+
   const checkifUserIsLogged = async () => {
     try {
       const refreshResponse = await refreshSer.refresh();
 
       if (refreshResponse.status === 200) {
+        changeIsLogged(true);
         return true;
       }
-
+      changeIsLogged(false);
       return false;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
@@ -33,45 +41,37 @@ function Index() {
 
           // Display the message from the response
           if (errorData?.message) {
-            alert(`Error: ${errorData.message}`);
+            console.log(`Error: ${errorData.message}`);
           } else {
-            alert("An unexpected error occurred.");
+            console.log("An unexpected error occurred.");
           }
         } else if (axiosError.request) {
           // Request was made but no response was received
           console.log("No response received:", axiosError.request);
-          alert("No response received from the server.");
+          console.log("No response received from the server.");
         }
       } else {
         // Handle non-Axios error
         console.log("Unexpected error:", error);
-        alert("An unexpected error occurred.");
+        console.log("An unexpected error occurred.");
       }
     }
   };
-
-  checkifUserIsLogged().then((isLoggedIn) => {
-    if (isLoggedIn) {
-      console.log(true);
-    } else {
-      console.log(false);
-    }
-  });
-
+  useEffect(() => {
+    checkifUserIsLogged();
+  }, []);
   return (
-    <LoggedUserProvider>
-      <div className="relative flex h-screen min-h-150 w-full min-w-193 flex-col gap-2 bg-backFiller p-2">
-        <div className="flex h-full w-full gap-2">
-          <LibraryToggleProvider>
-            <Sidebar />
-          </LibraryToggleProvider>
-          <IndexContentWindowWrapper>
-            <Outlet />
-          </IndexContentWindowWrapper>
-        </div>
-        <Player />
+    <div className="relative flex h-screen min-h-150 w-full min-w-193 flex-col gap-2 bg-backFiller p-2">
+      <div className="flex h-full w-full gap-2">
+        <LibraryToggleProvider>
+          <Sidebar />
+        </LibraryToggleProvider>
+        <IndexContentWindowWrapper>
+          <Outlet />
+        </IndexContentWindowWrapper>
       </div>
-    </LoggedUserProvider>
+      <Player />
+    </div>
   );
 }
 

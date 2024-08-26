@@ -3,10 +3,13 @@ import useLoggedUser from "../hooks/useLoggedUser.js";
 
 interface LoggedUserContextType {
   isLogged: boolean;
+  changeIsLogged: (status: boolean) => void;
 }
 
+// Default value
 const defaultValue: LoggedUserContextType = {
   isLogged: false,
+  changeIsLogged: () => {},
 };
 
 const LoggedUserContext = createContext<LoggedUserContextType>(defaultValue);
@@ -18,7 +21,7 @@ const LoggedUserProvider: FC<LoggedUserProviderProps> = ({ children }) => {
   const { isLogged, changeIsLogged } = useLoggedUser();
 
   return (
-    <LoggedUserContext.Provider value={{ isLogged }}>
+    <LoggedUserContext.Provider value={{ isLogged, changeIsLogged }}>
       {children}
     </LoggedUserContext.Provider>
   );
