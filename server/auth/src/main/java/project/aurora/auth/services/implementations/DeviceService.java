@@ -11,11 +11,13 @@ import project.aurora.auth.repositories.DeviceRepository;
 import project.aurora.auth.services.contracts.IDeviceService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class DeviceService implements IDeviceService {
+public class
+DeviceService implements IDeviceService {
 
     private final PasswordEncoder passwordEncoder;
     private final DeviceRepository deviceRepository;
@@ -39,14 +41,14 @@ public class DeviceService implements IDeviceService {
         device.setBrowserName(browserName);
         device.setOperatingSystem(operatingSystem);
         device.setDeviceType(deviceType);
-        device.setLastUsed(Instant.now());
+        device.setLastUsed(LocalDateTime.now());
         return deviceRepository.save(device);
     }
 
     @Override
     public void updateDeviceLastUsed(String deviceId) {
         Device device = deviceRepository.findById(UUID.fromString(deviceId)).orElseThrow(() ->  new EntityNotFoundException("Device", deviceId));
-        device.setLastUsed(Instant.now());
+        device.setLastUsed(LocalDateTime.now());
         deviceRepository.save(device);
     }
 

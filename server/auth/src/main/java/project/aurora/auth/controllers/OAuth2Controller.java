@@ -29,8 +29,8 @@ public class OAuth2Controller {
     }
 
     @PostMapping("/callback")
-    public ResponseEntity<?> handleOAuth2Callback(@RequestBody OAuth2CallbackRequestDTO request, HttpServletResponse response) {
-        oauth2Service.processOAuth2Callback(request.getCode(), request.getProvider(), response);
+    public ResponseEntity<?> handleOAuth2Callback(@RequestBody OAuth2CallbackRequestDTO oauth2CallbackRequestDTO, HttpServletRequest request, HttpServletResponse response) {
+        oauth2Service.processOAuth2Callback(oauth2CallbackRequestDTO.getCode(), oauth2CallbackRequestDTO.getProvider(), request, response);
         return ResponseEntity.ok().build();
     }
 }

@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 import project.aurora.auth.exceptions.InvalidCredentialsException;
+import project.aurora.auth.models.DTOs.user.UserCreationDTO;
+import project.aurora.auth.models.DTOs.user.UserRegistrationDTO;
 import project.aurora.auth.models.User;
 import project.aurora.auth.services.contracts.*;
 
@@ -18,12 +20,12 @@ import static project.aurora.auth.models.constants.TimeConstants.*;
 @Service
 public class AuthService implements IAuthService {
     private final IDeviceService deviceService;
-    private final ITokenService authService;
+    private final ITokenService tokenService;
     private final ICookieService cookieService;
 
-    public AuthService(IDeviceService deviceService, ITokenService authService, ICookieService cookieService){
+    public AuthService(IDeviceService deviceService, ITokenService authService, ICookieService cookieService) {
         this.deviceService = deviceService;
-        this.authService = authService;
+        this.tokenService = authService;
         this.cookieService = cookieService;
     }
 
@@ -43,11 +45,18 @@ public class AuthService implements IAuthService {
             deviceService.updateDeviceLastUsed(deviceId);
         }
 
-        String refreshToken = authService.generateRefreshToken(user);
-        String accessToken = authService.generateAccessToken(user);
+        String refreshToken = tokenService.generateRefreshToken(user);
+        String accessToken = tokenService.generateAccessToken(user);
         deviceService.assignRefreshTokenToDevice(user, deviceId, refreshToken);
 
         response.addCookie(cookieService.createSecuredCookie(REFRESH_COOKIE_NAME, refreshToken, REFRESH_COOKIE_PATH, REFRESH_TOKEN_EXPIRY));
         response.addCookie(cookieService.createSecuredCookie(ACCESS_COOKIE_NAME, accessToken, BASE_PATH, ACCESS_TOKEN_EXPIRY));
     }
+
+    public void signUserUp(User user, UserCreationDTO userCreationDTO, HttpServletRequest request, HttpServletResponse response){
+        // sent request to resource server to create user userCreationDTO
+        signUserIn(user, request, response);
+    }
+
+    public void signUserOut(HttpServletRequest request, HttpServletResponse response){}
 }

@@ -6,5 +6,7 @@ import project.aurora.auth.models.User;
 public interface IUserService {
     User authenticateUser(String email, String password);
     User findUserById(String uuid);
-    User registerUser(UserRegistrationDTO userRegistrationDTO);
+    User findUserByEmail(String email);
+    User saveUser(User user);
+    User createUser(String email, String password, String roleName);
 }

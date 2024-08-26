@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -19,8 +20,7 @@ import java.util.UUID;
 public class Device {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "device_id", nullable = false)
+    @Column(name = "device_id", updatable = false, nullable = false)
     private UUID deviceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,9 +36,9 @@ public class Device {
     @Column(name = "operating_system", length = 50)
     private String operatingSystem;
 
-    @Column(name = "device_type", length = 20)
+    @Column(name = "device_type", length = 25)
     private String deviceType;
 
     @Column(name = "last_used", nullable = false)
-    private Instant lastUsed;
+    private LocalDateTime lastUsed = LocalDateTime.now();
 }

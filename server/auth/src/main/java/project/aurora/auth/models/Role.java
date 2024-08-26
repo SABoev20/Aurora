@@ -16,10 +16,9 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "role_id")
+    @Column(name = "role_id", updatable = false, nullable = false)
     private UUID roleId;
 
-    @Column(name = "role_name", nullable = false, length = 10)
+    @Column(name = "role_name", length = 10, nullable = false)
     private String roleName;
 }

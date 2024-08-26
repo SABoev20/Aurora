@@ -1,23 +1,15 @@
 package project.aurora.auth.controllers;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.WebUtils;
-import project.aurora.auth.exceptions.InvalidCredentialsException;
-import project.aurora.auth.exceptions.ReauthenticationRequiredException;
 import project.aurora.auth.models.DTOs.auth.LoginRequestDTO;
+import project.aurora.auth.models.DTOs.user.UserCreationDTO;
 import project.aurora.auth.models.DTOs.user.UserRegistrationDTO;
 import project.aurora.auth.models.User;
 import project.aurora.auth.models.constants.PathConstants;
 import project.aurora.auth.services.contracts.*;
-
-import static project.aurora.auth.exceptions.InvalidCredentialsException.CredentialType.COOKIE;
-import static project.aurora.auth.models.constants.NameConstants.*;
-import static project.aurora.auth.models.constants.PathConstants.*;
-import static project.aurora.auth.models.constants.TimeConstants.*;
 
 @RestController
 @RequestMapping(PathConstants.AUTH_MAPPING_PATH)
@@ -39,7 +31,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRegistrationDTO loginRequest, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> register(@RequestBody UserRegistrationDTO userRegistrationDTO, HttpServletRequest request, HttpServletResponse response) {
+        User user = userService.createUser(userRegistrationDTO.getEmail(), userRegistrationDTO.getPassword(), "LISTENER");
+        UserCreationDTO userCreationDTO = new UserCreationDTO(userRegistrationDTO.getName(), null, userRegistrationDTO.getDateOfBirth());
+        authService.signUserUp(user, userCreationDTO, request, response);
+
         return ResponseEntity.ok().build();
     }
 }
