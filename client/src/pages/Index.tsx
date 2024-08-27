@@ -2,10 +2,8 @@ import Sidebar from "../components/Sidebar.js";
 import { Outlet } from "react-router-dom";
 import Player from "../components/Player.js";
 import IndexContentWindowWrapper from "../components/IndexContentWindowWrapper.js";
-import { LoggedUserProvider } from "../contexts/LoggedUserProvider.js";
-
 import refreshTokenService from "../services/refreshTokenService.js";
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import { LoggedUserContext } from "../contexts/LoggedUserProvider.js";
 import { useContext } from "react";
 import { useEffect } from "react";
@@ -17,7 +15,7 @@ interface ErrorResponse {
   message: string;
 }
 function Index() {
-  const { isLogged, changeIsLogged } = useContext(LoggedUserContext);
+  const { changeIsLogged } = useContext(LoggedUserContext);
 
   const checkifUserIsLogged = async () => {
     try {
@@ -31,15 +29,12 @@ function Index() {
       return false;
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        // Axios-specific error
         const axiosError = error as AxiosError<ErrorResponse>;
         if (axiosError.response) {
-          // Server responded with a status other than 2xx
           const errorData = axiosError.response.data;
           console.log("Error data:", errorData);
           console.log("Error status:", axiosError.response.status);
 
-          // Display the message from the response
           if (errorData?.message) {
             console.log(`Error: ${errorData.message}`);
           } else {
@@ -51,7 +46,6 @@ function Index() {
           console.log("No response received from the server.");
         }
       } else {
-        // Handle non-Axios error
         console.log("Unexpected error:", error);
         console.log("An unexpected error occurred.");
       }

@@ -9,7 +9,10 @@ interface Props {
 
 function LibraryPlaylist({ image, albumName, author, link }: Props) {
   return (
-    <Link to={link}>
+    <Link
+      to={link}
+      state={{ image: image, albumName: albumName, author: author }}
+    >
       <div className="flex w-full cursor-pointer rounded-[4px] bg-transparent p-3 hover:bg-backHighlight">
         <img
           src={image}

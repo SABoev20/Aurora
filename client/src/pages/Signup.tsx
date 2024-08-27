@@ -1,13 +1,8 @@
 import { Link } from "react-router-dom";
 import SocialMediaLoginAndRegisterButton from "../components/buttons/SocialMediaLoginAndRegisterButton";
-import google from "./../assets/icons/google.png";
-import facebook from "./../assets/icons/facebook.png";
-import apple from "./../assets/icons/apple.png";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import registerService from "../services/registerService";
-import { LoggedUserContext } from "../contexts/LoggedUserProvider";
-import { useContext } from "react";
 
 type FormFields = {
   email: string;
@@ -527,10 +522,13 @@ function Signup() {
                           Step 3 of 3
                         </p>
                         <p className="text-base font-bold text-textBase">
-                          Tell us more about yourself
+                          Everything is looking good
                         </p>
                       </div>
                     </div>
+                    <p className="text-lg text-textBase">
+                      We wish you to have fun using our music player
+                    </p>
                   </div>
                 </div>
               );
@@ -557,21 +555,70 @@ function Signup() {
                   <div className="h-[1px] w-[43%] bg-[#727272]"></div>
                 </div>
                 <div className="flex w-full flex-col items-center gap-3">
-                  <SocialMediaLoginAndRegisterButton
-                    text="Continue with Google"
-                    icon={google}
-                  />
-                  <Link to="/">
+                  <Link to="/" className="flex w-[90%]">
                     <SocialMediaLoginAndRegisterButton
-                      text="Continue with GitHub"
-                      icon={facebook}
-                      buttonEvent={handleLogin}
+                      text="Continue with Google"
+                      icon={
+                        <svg
+                          viewBox="-3 0 262 262"
+                          xmlns="http://www.w3.org/2000/svg"
+                          preserveAspectRatio="xMidYMid"
+                          className="h-6 w-6 rounded-full fill-textBase"
+                        >
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g
+                            id="SVGRepo_tracerCarrier"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
+                            <path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"></path>
+                            <path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"></path>
+                            <path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782"></path>
+                            <path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"></path>
+                          </g>
+                        </svg>
+                      }
                     />
                   </Link>
-                  <SocialMediaLoginAndRegisterButton
-                    text="Continue with Apple"
-                    icon={apple}
-                  />
+                  <Link to="/" className="flex w-[90%]">
+                    <SocialMediaLoginAndRegisterButton
+                      text="Continue with Github"
+                      buttonEvent={handleLogin}
+                      icon={
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          className="h-6 w-6 rounded-full fill-textBase"
+                        >
+                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                      }
+                    />
+                  </Link>
+                  <Link to="/" className="flex w-[90%]">
+                    <SocialMediaLoginAndRegisterButton
+                      text="Continue with Discord"
+                      icon={
+                        <svg
+                          viewBox="0 0 24 24"
+                          className="h-6 w-6 rounded-full fill-textBase"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                          <g
+                            id="SVGRepo_tracerCarrier"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
+                            {" "}
+                            <path d="M18.8944 4.34399C17.5184 3.71467 16.057 3.256 14.5317 3C14.3397 3.33067 14.1263 3.77866 13.977 4.13067C12.3546 3.89599 10.7439 3.89599 9.14394 4.13067C8.9946 3.77866 8.77059 3.33067 8.58925 3C7.05328 3.256 5.59194 3.71467 4.22555 4.34399C1.46289 8.41865 0.716219 12.3973 1.08955 16.3226C2.92421 17.6559 4.6949 18.4666 6.43463 19C6.86129 18.424 7.2453 17.8053 7.57597 17.1546C6.94663 16.92 6.3493 16.632 5.7733 16.2906C5.92263 16.184 6.07197 16.0667 6.21064 15.9493C9.68796 17.5387 13.4544 17.5387 16.889 15.9493C17.0383 16.0667 17.177 16.184 17.3263 16.2906C16.7503 16.632 16.153 16.92 15.5237 17.1546C15.8543 17.8053 16.2384 18.424 16.665 19C18.4037 18.4666 20.185 17.6559 22.0101 16.3226C22.4687 11.7787 21.2837 7.83202 18.8944 4.34399ZM8.05596 13.9013C7.01061 13.9013 6.15728 12.952 6.15728 11.7893C6.15728 10.6267 6.98928 9.67731 8.05596 9.67731C9.11194 9.67731 9.97591 10.6267 9.95457 11.7893C9.95457 12.952 9.11194 13.9013 8.05596 13.9013ZM15.065 13.9013C14.0197 13.9013 13.1653 12.952 13.1653 11.7893C13.1653 10.6267 13.9983 9.67731 15.065 9.67731C16.121 9.67731 16.985 10.6267 16.9637 11.7893C16.9637 12.952 16.1317 13.9013 15.065 13.9013Z"></path>{" "}
+                          </g>
+                        </svg>
+                      }
+                    />
+                  </Link>
                 </div>
                 <div className="m-auto mb-8 mt-8 h-[1px] w-full min-w-[90%] bg-[#292929]"></div>
                 <p className="mt-16 text-center text-base text-textSubdued">

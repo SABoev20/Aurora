@@ -29,7 +29,7 @@ function Library() {
       image="http://localhost:5173/imageToTest2.png"
       albumName="to have"
       author="Zhivko"
-      link={`playlist/toHave`}
+      link={`/playlist/toHave`}
     />
   );
 

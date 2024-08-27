@@ -1,8 +1,11 @@
 import { extractColors } from "extract-colors";
 import { useState, useLayoutEffect } from "react";
 import OpenPlaylistRow from "./OpenPlaylistRow";
+import { useLocation } from "react-router-dom";
 
 function OpenPlaylist() {
+  const location = useLocation();
+  const { image, albumName, author } = location.state || {};
   const [color, setColor] = useState("");
 
   const changeColor = (color: string): void => {
@@ -25,9 +28,12 @@ function OpenPlaylist() {
   };
   useLayoutEffect(() => {
     const img = document.createElement("img");
-    img.src = "http://localhost:5173/imageToTest6.png";
+    img.src = image;
     getColor(img);
   }, []);
+
+  //This should be get from fetched data
+  const desciprion = "Songs that i want to sav";
 
   return (
     <>
@@ -40,14 +46,19 @@ function OpenPlaylist() {
             style={{ backgroundColor: color }}
           >
             <div className="z-50 flex items-end gap-8">
-              <div className="z-50 h-56 min-h-40 w-56 min-w-40 rounded-lg bg-[url(http://localhost:5173/imageToTest6.png)]"></div>
+              <div
+                className="z-50 h-56 min-h-40 w-56 min-w-40 rounded-lg"
+                style={{
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
               <div className="flex h-full flex-col justify-end gap-2">
                 <p className="text-sm text-textBase">Playlist</p>
-                <p className="text-8xl font-bold text-textBase">to have</p>
-                <p className="text-sm text-textSubdued">
-                  Songs that i want to sav
-                </p>
-                <p className="text-sm font-bold text-textBase">Zhivko</p>
+                <p className="text-8xl font-bold text-textBase">{albumName}</p>
+                <p className="text-sm text-textSubdued">{desciprion}</p>
+                <p className="text-sm font-bold text-textBase">{author}</p>
               </div>
             </div>
           </div>
